@@ -11,8 +11,8 @@ from typing import OrderedDict
 
 Procesos = ['P1', 'P2', 'P3', 'P4']
 Llegada = [3, 2, 1, 4]
-PrioridadesIni = [30, 30, 20, 10]
-Recursos = [110, 200, 150, 100]
+PrioridadesIni = [300, 300, 200, 100]
+Recursos = [100, 200, 150, 100]
 Maximo = 10
 Completos = [False, False, False, False]
 Ncolas = 1
@@ -26,9 +26,17 @@ def OrdenarLlegada(Procesos, Prioridades):
     Orden = OrderedDict(reversed(list(Orden.items())))
     return Orden
 
-def EjecutarProceso(Orden, Recursos, Maximo):
+def OrdenarRecursos(Procesos, Recursos):
+    DictRP = {Procesos[i]: Recursos[i] for i in range(len(Procesos))}
+    OrdenR = collections.OrderedDict(sorted(DictRP.items()))
+    return OrdenR
+
+def EjecutarProceso(Orden, OrdenR, Maximo):
     Prioridades = list(Orden.keys())
     Procesos = list(Orden.values())
+    ProcesosAsignado = list(OrdenR.keys())
+    Recursos = list(OrdenR.values())
+    print(Prioridades, Procesos, Recursos, ProcesosAsignado)
     c=0
     Completado = False
     while c < Maximo:
@@ -37,7 +45,7 @@ def EjecutarProceso(Orden, Recursos, Maximo):
             Recursos[0] = 0 
         c=c+1
     if(Recursos[0]!=0):
-        Prioridades[0] = Prioridades[0]-10
+        Prioridades[0] = Prioridades[0]-100
     elif(Recursos[0]==0):
         Prioridades[0] = 0
         Completado = 1
@@ -59,7 +67,8 @@ def VerificarCompletado(Completados, Completado, Orden, Ncolas):
 #     if Completados[0] == False:
 #         Cola.append("C"+str(Ncolas))
 #         EjecutarProceso(Orden, Recursos, Maximo)
-Completado, Orden=EjecutarProceso(OrdenarLlegada(Procesos, PrioridadesIni), Recursos, Maximo)
+ 
+Completado, Orden=EjecutarProceso(OrdenarLlegada(Procesos, PrioridadesIni), OrdenarRecursos(Procesos, Recursos) , Maximo)
 Completados, Orden, Ncolas = VerificarCompletado(Completos, Completado, Orden, Ncolas)
 # Colas(Completados, Orden, Ncolas, Colas, Recursos, Maximo)
 
