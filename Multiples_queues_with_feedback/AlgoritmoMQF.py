@@ -12,7 +12,7 @@ from typing import OrderedDict
 Procesos = ['P1', 'P2', 'P3', 'P4']
 Llegada = [3, 2, 1, 4]
 PrioridadesIni = [300, 300, 200, 100]
-Recursos = [100, 200, 150, 100]
+Recursos = [200, 100, 150, 100]
 Maximo = 10
 Completos = [False, False, False, False]
 Ncolas = 1
@@ -38,16 +38,18 @@ def EjecutarProceso(Orden, OrdenR, Maximo):
     Recursos = list(OrdenR.values())
     print(Prioridades, Procesos, Recursos, ProcesosAsignado)
     c=0
+    Proceso = Procesos[0]
+    pos = ProcesosAsignado.index(Proceso)
     Completado = False
     while c < Maximo:
-        Recursos[0] = Recursos[0]-10 
-        if Recursos[0] == 0:
-            Recursos[0] = 0 
+        Recursos[pos] = Recursos[pos]-10 
+        if Recursos[pos] == 0:
+            Recursos[pos] = 0 
         c=c+1
-    if(Recursos[0]!=0):
+    if(Recursos[pos]!=0):
         Prioridades[0] = Prioridades[0]-100
-    elif(Recursos[0]==0):
-        Prioridades[0] = 0
+    elif(Recursos[pos]==0):
+        Prioridades[pos] = 0
         Completado = 1
         print('Proceso '+Procesos[0]+' terminado')
     Orden = OrdenarLlegada(Procesos, Prioridades)
