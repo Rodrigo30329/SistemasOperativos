@@ -69,14 +69,8 @@ def Colas(Completados, Ncolas):
     if Completados[0] == False:
         Cola.append("C"+str(Ncolas)) 
     print(Cola)    
- 
-def AsignarColas(Completados, Orden, Ncolas):
-    Colas(Completados, Ncolas)
-    for i in range(len(Procesos)):
-        EjecutarProceso(OrdenarLlegada(Procesos, PrioridadesIni), OrdenarRecursos(Procesos, Recursos) , Maximo)
 
 Completado, Orden=EjecutarProceso(OrdenarLlegada(Procesos, PrioridadesIni), OrdenarRecursos(Procesos, Recursos) , Maximo)
 Completados, Orden, Ncolas = VerificarCompletado(Completos, Completado, Orden, Ncolas)
-AsignarColas(Completados, Orden, Ncolas)
 
 print(Completados, Orden, Ncolas)
