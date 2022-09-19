@@ -23,11 +23,11 @@ def Contar10a20():
 def ContarAlTiempo():
     NHilos = 2    
     for NHilo in range(NHilos):
-        hilo = threading.Thread(name='%s' %NHilo , target=Contar0a10())    
+        hilo = threading.Thread(name='%s' %NHilo , target=Contar0a10)    
         hilo.start()
 
     for NHilo in range(NHilos):
-        hilo = threading.Thread(name='%s' %NHilo , target=Contar10a20())    
+        hilo = threading.Thread(name='%s' %NHilo , target=Contar10a20)    
         hilo.start()
 
 ContarAlTiempo()
