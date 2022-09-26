@@ -8,6 +8,7 @@ from threading import Thread
 
 def LlegadaCaja():
     N=randrange(100)
+    tot=N
     while N>0:
         contador = 1
         Clientes = list()
@@ -28,6 +29,7 @@ def LlegadaCaja():
                 Clientes.pop(-1)
                 print(Clientes)
                 print('↨')
+    tot=tot-N
 
 class Cajero(Thread):
     def __init__(self):
