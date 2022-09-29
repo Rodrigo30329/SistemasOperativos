@@ -1,4 +1,5 @@
 from random import randint
+from threading import Thread
 import threading
 import time
 
@@ -18,22 +19,31 @@ RP=2
 EventoT = [AR, AR, AR, AR, AR, R, R, AL, AL, AL]
 EventoL = [D, D, GS, GS, RG, PS, PS, PS, RP, RP]
 
-
-def seleccionTortuga(ET):
-    N=randint(0, len(ET)-1)
-    return N
-
-def seleccionLiebre(EL):
-    N=randint(0, len(EL)-1)
-    return N
+class Tortuga(Thread):
+    def __init__(self):
+        Thread.__init__(self)
+        self.NT=0
+    def run(self):
+        self.NT=randint(0, len(EventoT)-1)
+      
+class Liebre(Thread):
+    def __init__(self):
+        Thread.__init__(self)
+        self.NL=0
+    def run(self):
+        self.NL=randint(0, len(EventoL)-1)
 
 def LiebrevsTortuga():
     Completo=False
     x=0
     y=0
     while Completo!=True:
-        ves=seleccionLiebre(EventoL)
-        ves2=seleccionTortuga(EventoT)
+        liebre=Liebre()
+        liebre.start()
+        ves=liebre.NL
+        tortuga=Tortuga()
+        tortuga.start()
+        ves2=tortuga.NT
         movl=EventoL[ves]
         movt=EventoT[ves2]
         if(x==0):
