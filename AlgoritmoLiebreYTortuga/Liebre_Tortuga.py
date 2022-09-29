@@ -37,6 +37,7 @@ def LiebrevsTortuga():
     Completo=False
     x=0
     y=0
+    print("La carrera ha comenzado")
     while Completo!=True:
         liebre=Liebre()
         liebre.start()
