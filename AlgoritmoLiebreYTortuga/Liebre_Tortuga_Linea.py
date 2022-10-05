@@ -4,8 +4,6 @@ import threading
 import time
 
 Completo=False
-Tortuga = "Tortuga"
-Liebre = "Liebre"
 
 AR=3
 R=6
@@ -25,7 +23,14 @@ class Tortuga(Thread):
         self.NT=0
     def run(self):
         self.NT=randint(0, len(EventoT)-1)
-      
+
+class Tortuga2(Thread):
+    def __init__(self):
+        Thread.__init__(self)
+        self.NT2=0
+    def run(self):
+        self.NT2=randint(0, len(EventoT)-1)
+
 class Liebre(Thread):
     def __init__(self):
         Thread.__init__(self)
@@ -37,6 +42,10 @@ def LiebrevsTortuga():
     Completo=False
     x=0
     y=0
+    z=0
+    p=''
+    p2=''
+    p3=''
     print("La carrera ha comenzado")
     while Completo!=True:
         liebre=Liebre()
@@ -45,8 +54,12 @@ def LiebrevsTortuga():
         tortuga=Tortuga()
         tortuga.start()
         ves2=tortuga.NT
+        tortuga2=Tortuga2()
+        tortuga2.start()
+        ves3=tortuga2.NT2
         movl=EventoL[ves]
         movt=EventoT[ves2]
+        movt2=EventoT[ves3]
         if(x==0):
             if(ves==4 or ves==8 or ves==9):
                 movl=1
@@ -61,29 +74,97 @@ def LiebrevsTortuga():
                 movt=movt
         y=y+movt
 
+        if(z==0):
+            if(ves3==5 or ves3==6):
+                movt2=1
+            else:
+                movt2=movt2
+        z=z+movt2
+
         time.sleep(1)
 
         if(x>=200):
+            if(y>=200):
+                if(z>=200):
+                    print("Hay un triple empate")
+                else:
+                    print("Ha habido un empate entre la liebre y la tortuga")
+                    print("La Tortuga 2 ha terminado en " + str(z))
+                Completo=True
+            if(z>=200):
+                if(y>=200):
+                    print("Hay un triple empate")
+                else:
+                    print("Ha habido un empate entre la liebre y la tortuga 2")
+                    print("la liebre ha terminado en " + str(y))
+                Completo=True
             if(y<200):
                 print("La liebre ha llegado a 200")
                 print("La tortuga ha terminado en " + str(y))
                 Completo=True
-            if(y>=200):
-                print("Ha habido un empate")
+            if(z<200):
+                print("La liebre ha llegado a 200")
+                print("La tortuga 2 ha terminado en " + str(z))
                 Completo=True
+
         elif(y>=200):
+            if(x>=200):
+                if(z>=200):
+                    print("Hay un triple empate")
+                else:
+                    print("Ha habido un empate entre la liebre y la tortuga")
+                    print("La Tortuga 2 ha terminado en " + str(z))
+                Completo=True
+            if(z>=200):
+                if(x>=200):
+                    print("Hay un triple empate")
+                else:
+                    print("Ha habido un empate entre la tortuga y la tortuga 2")
+                    print("la liebre ha terminado en " + str(y))
+                Completo=True
             if(x<200):
-                print("La tortuga ha ganado")
+                print("La tortuga ha llegado a 200")
+                print("La liebre ha terminado en " + str(y))
+                Completo=True
+            if(z<200):
+                print("La tortuga ha llegado a 200")
+                print("La tortuga 2 ha terminado en " + str(z))
+                Completo=True
+
+        elif(z==200):
+            if(x>=200):
+                if(y>=200):
+                    print("Hay un triple empate")
+                else:
+                    print("Ha habido un empate entre la liebre y la tortuga 2")
+                    print("La Tortuga ha terminado en " + str(y))
+                Completo=True
+            if(y>=200):
+                if(x>=200):
+                    print("Hay un triple empate")
+                else:
+                    print("Ha habido un empate entre la tortuga y la tortuga 2")
+                    print("la liebre ha terminado en " + str(x))
+                Completo=True
+            if(x<200):
+                print("La tortuga 2 ha llegado a 200")
                 print("La liebre ha terminado en " + str(x))
                 Completo=True
-            if(x>=200):
-                print("Ha habido un empate")
+            if(y<200):
+                print("La tortuga 2 ha llegado a 200")
+                print("La tortuga ha terminado en " + str(y))
                 Completo=True
+    
         else:
             for i in range(x):
-                print("→T")
+                p=p+'-'
+            print(p,"L")
             for i in range(y):
-                print("→L")
+                p2=p2+'-'
+            print(p2,'T')
+            for i in range(z):
+                p3=p3+'-'
+            print(p3,'T2')
             
 def Carrera():  
     carrera = threading.Thread(name='carrera', target=LiebrevsTortuga)    
